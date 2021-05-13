@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class JmsProduce {
     static final Scanner input = new Scanner(System.in);
-    private static final String ACTIVEMQ_URL = "tcp://ip:port";
+    private static final String ACTIVEMQ_URL = "tcp://114.116.251.9:61616";
     private static final String QUEUE_NAME = "queue01";
 
     public static void main(String[] args) throws JMSException {
