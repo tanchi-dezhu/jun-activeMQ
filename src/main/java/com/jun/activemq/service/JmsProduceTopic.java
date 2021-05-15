@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 /**
  * @author jun
- * @date 2021年05月11日 21:02
+ * @date 2021年05月15日 8:35
  */
-public class JmsProduce {
+public class JmsProduceTopic {
     static final Scanner input = new Scanner(System.in);
     private static final String ACTIVEMQ_URL = "tcp://114.116.251.9:61616";
-    private static final String QUEUE_NAME = "queue01";
+    private static final String TOPIC_NAME = "topic01";
 
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂，按照给定的URL，采用默认的用户名密码
@@ -23,12 +23,10 @@ public class JmsProduce {
         //3.创建会话session
         //两个参数transacted=事务,acknowledgeMode=确认模式(签收)
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        //4.创建目的地(具体是队列queue还是主题topic)
-        Queue queue = session.createQueue(QUEUE_NAME);
         //4.创建主题
-//        Topic topic = session.createTopic(QUEUE_NAME);
+        Topic topic = session.createTopic(TOPIC_NAME);
         //5.创建消息的生产者
-        MessageProducer messageProducer = session.createProducer(queue);
+        MessageProducer messageProducer = session.createProducer(topic);
         //6.通过使用消息生产者,生产三条消息,发送到MQ的队列里面
         for (; ; ) {
             TextMessage textMessage;
@@ -64,8 +62,7 @@ public class JmsProduce {
         //9.关闭资源
         messageProducer.close();
         session.close();
-        System.out.println("****消息发布到MQ队列完成");
+        System.out.println("****TOPIC-消息发布到MQ队列完成");
         System.exit(-1);
     }
 }
-
