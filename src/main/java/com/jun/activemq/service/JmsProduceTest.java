@@ -22,7 +22,12 @@ public class JmsProduceTest {
         MessageProducer messageProducer = session.createProducer(queue);
         for (int i = 0; i < 3; i++) {
             TextMessage textMessage = session.createTextMessage(String.valueOf(i));
+            textMessage.setStringProperty("c01","vip");
             messageProducer.send(textMessage);
+
+            MapMessage mapMessage = session.createMapMessage();
+            mapMessage.setString("k1", "mapMessage的值" + i);
+            messageProducer.send(mapMessage);
         }
 
         messageProducer.close();

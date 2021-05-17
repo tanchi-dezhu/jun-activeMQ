@@ -35,7 +35,14 @@ public class JmsConsumer {
             //6.通过消费者调用方法获取队列里面的消息(发送的消息是什么类型,接收的时候就强转成什么类型)
             TextMessage textMessage = (TextMessage) messageConsumer.receive();
             if (textMessage != null) {
-                System.out.println("****消费者接收到的消息:  " + textMessage.getText());
+                System.out.println("****消费者接收到TextMessage的消息:  " + textMessage.getText());
+                System.out.println("****消费者接收到TextMessage请求头的消息:  " + textMessage.getStringProperty("c01"));
+            } else {
+                break;
+            }
+            MapMessage receive = (MapMessage) messageConsumer.receive();
+            if (receive != null) {
+                System.out.println("****消费者接收到MapMessage的消息:  " + receive.getString("k1"));
             } else {
                 break;
             }
