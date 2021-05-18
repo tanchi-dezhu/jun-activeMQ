@@ -20,14 +20,17 @@ public class JmsProduceTest {
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         Queue queue = session.createQueue(QUEUE_NAME);
         MessageProducer messageProducer = session.createProducer(queue);
+//        消息非持久化,activemq宕机之后消息消失
+//        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+//        消息非持久化,activemq宕机之后消息不会消失
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
         for (int i = 0; i < 3; i++) {
             TextMessage textMessage = session.createTextMessage(String.valueOf(i));
             textMessage.setStringProperty("c01","vip");
             messageProducer.send(textMessage);
-
-            MapMessage mapMessage = session.createMapMessage();
-            mapMessage.setString("k1", "mapMessage的值" + i);
-            messageProducer.send(mapMessage);
+//            MapMessage mapMessage = session.createMapMessage();
+//            mapMessage.setString("k1", "mapMessage的值" + i);
+//            messageProducer.send(mapMessage);
         }
 
         messageProducer.close();

@@ -40,12 +40,12 @@ public class JmsConsumer {
             } else {
                 break;
             }
-            MapMessage receive = (MapMessage) messageConsumer.receive();
-            if (receive != null) {
-                System.out.println("****消费者接收到MapMessage的消息:  " + receive.getString("k1"));
-            } else {
-                break;
-            }
+//            MapMessage receive = (MapMessage) messageConsumer.receive();
+//            if (receive != null) {
+//                System.out.println("****消费者接收到MapMessage的消息:  " + receive.getString("k1"));
+//            } else {
+//                break;
+//            }
         }
 
         //7.关闭资源
