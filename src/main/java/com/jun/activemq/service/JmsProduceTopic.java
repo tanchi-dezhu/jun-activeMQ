@@ -19,7 +19,6 @@ public class JmsProduceTopic {
         ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory(ACTIVEMQ_URL);
         //2.通过连接工厂,获得connection并启动访问
         Connection connection = activeMQConnectionFactory.createConnection();
-        connection.start();
         //3.创建会话session
         //两个参数transacted=事务,acknowledgeMode=确认模式(签收)
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -27,6 +26,9 @@ public class JmsProduceTopic {
         Topic topic = session.createTopic(TOPIC_NAME);
         //5.创建消息的生产者
         MessageProducer messageProducer = session.createProducer(topic);
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);
+        //设置持久化之后在启动连接
+        connection.start();
         //6.通过使用消息生产者,生产三条消息,发送到MQ的队列里面
         for (; ; ) {
             TextMessage textMessage;
