@@ -21,7 +21,7 @@ public class JmsProduceTopic {
         Connection connection = activeMQConnectionFactory.createConnection();
         //3.创建会话session
         //两个参数transacted=事务,acknowledgeMode=确认模式(签收)
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
         //4.创建主题
         Topic topic = session.createTopic(TOPIC_NAME);
         //5.创建消息的生产者
@@ -63,6 +63,8 @@ public class JmsProduceTopic {
 
         //9.关闭资源
         messageProducer.close();
+//        保证事务的一致性可以使用session.rollback();进行回滚
+        session.commit();
         session.close();
         System.out.println("****TOPIC-消息发布到MQ队列完成");
         System.exit(-1);

@@ -24,7 +24,8 @@ public class JmsConsumerTopic {
 
         //3.创建会话session
         //两个参数transacted=事务,acknowledgeMode=确认模式(签收)
-        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+//        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Session session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
 
         //4.创建目的地(具体是队列queue还是主题topic)
         Topic topic = session.createTopic(TOPIC_NAME);
@@ -40,7 +41,9 @@ public class JmsConsumerTopic {
             System.out.println("接收到持久化的topic" + textMessage.getText());
             receive = topicSubscriber.receive(1000L);
         }
-
+//        开启事务时必须commit不然不会提交到队列
+//        保证事务的一致性可以使用session.rollback();进行回滚
+        session.commit();
         session.close();
         connection.close();
 
