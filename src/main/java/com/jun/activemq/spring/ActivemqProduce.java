@@ -25,5 +25,6 @@ public class ActivemqProduce {
             TextMessage textMessage = session.createTextMessage("***spring和ActiveMq整合的case");
             return textMessage;
         });
+        System.out.println("send task over");
     }
 }

@@ -33,12 +33,25 @@
         <!--    传入连接工厂    -->
         <property name="connectionFactory" ref="connectionFactory"/>
         <!--    传入目的地    -->
-        <property name="defaultDestination" ref="destinationQueue"/>
+        <property name="defaultDestination" ref="destinationTopic"/>
         <!--    消息自动转换器    -->
         <property name="messageConverter">
             <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"/>
         </property>
     </bean>
+
+    <!--    配置监听程序-->
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <!--    传入连接工厂    -->
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <!--    传入目的地    -->
+        <property name="destination" ref="destinationTopic"/>
+        <!--    消息自动转换器    -->
+        <property name="messageListener" ref="myMessageListener"></property>
+    </bean>
+
+    <!--    bean的方式引入-->
+    <!--    <bean id="myMessageListener" class="com.jun.activemq.spring.MyMessageListener"></bean>-->
 </beans>
 
 
