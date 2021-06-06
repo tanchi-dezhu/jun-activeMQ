@@ -9,8 +9,8 @@ import javax.jms.*;
  * @date 2021年05月13日 13:45
  */
 public class JmsConsumer {
-    private static final String ACTIVEMQ_URL = "tcp://114.116.251.9:61616";
-    private static final String QUEUE_NAME = "queue01";
+    private static final String ACTIVEMQ_URL = "nio://114.116.251.9:61608";
+    private static final String QUEUE_NAME = "nio-queue";
 
     public static void main(String[] args) throws JMSException {
         //1.创建连接工厂，按照给定的URL，采用默认的用户名密码
